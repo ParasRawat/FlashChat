@@ -1,5 +1,7 @@
 package com.paras_rawat.flashchatnewfirebase;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -31,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     // TODO: Add member variables here:
     // UI references.
+
     private AutoCompleteTextView mEmailView;
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
@@ -137,6 +140,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                 else{
                     Snackbar.make(mEmailView,"SUCCESSFULL LOGIN",Snackbar.LENGTH_SHORT).show();
+
+                    //Saving the username that has actually been created and registered on firebase
+                    saveDisplayName();
+                    startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+
                 }
 
             }
@@ -146,18 +154,25 @@ public class RegisterActivity extends AppCompatActivity {
 
     // TODO: Save the display name to Shared Preferences
 
+    private void saveDisplayName(){
+        String displayName=mUsernameView.getText().toString();
+        //Now we need to get the hold of the object from the SharedPreferencesClass
+        SharedPreferences sharedPreferences=getSharedPreferences(CHAT_PREFS,0);
+        //Storing the data in the form of key value pair
+        sharedPreferences.edit().putString(DISPLAY_NAME_KEY,displayName).apply();
+        //Now the data is saved to the device
+
+    }
+
 
     // TODO: Create an alert dialog to show in case registration failed
     public void showErrorDialog(){
         new AlertDialog.Builder(this)
                 .setTitle("OOps")
-                .setMessage("Cannot register user")
+                .setMessage("Cannot register user, Please dont use dummy format \n Use the .com and @ symbol")
                 .setPositiveButton("Retry",null)
                 .setIcon(android.R.drawable.ic_dialog_alert).show();
 
     }
-
-
-
 
 }
