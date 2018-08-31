@@ -160,6 +160,7 @@ public class RegisterActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences=getSharedPreferences(CHAT_PREFS,0);
         //Storing the data in the form of key value pair
         sharedPreferences.edit().putString(DISPLAY_NAME_KEY,displayName).apply();
+
         //Now the data is saved to the device
 
     }
