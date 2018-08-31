@@ -2,6 +2,7 @@ package com.paras_rawat.flashchatnewfirebase;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -128,6 +130,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(!task.isSuccessful()){
                     Log.d("Flashchat", "onComplete:USER FAILED CREATION");
+                    showErrorDialog();
+                }
+
+                else{
+                    Toast.makeText(RegisterActivity.this,"USER REGISTRATION SUCCESFULL",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -139,6 +146,13 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     // TODO: Create an alert dialog to show in case registration failed
+    public void showErrorDialog(){
+        new AlertDialog.Builder(this)
+                .setTitle("OOps")
+                .setMessage("Cannot register user")
+                .setPositiveButton("Retry",null)
+                .setIcon(android.R.drawable.ic_dialog_alert).show();
+    }
 
 
 
